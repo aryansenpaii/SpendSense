@@ -2,50 +2,69 @@ package com.spendsense.controller;
 
 import com.spendsense.dto.ExpenseRequest;
 import com.spendsense.dto.ExpenseResponse;
+import com.spendsense.service.ExpenseService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/expenses")
+@RequiredArgsConstructor
 public class ExpenseController {
 
+    private final ExpenseService expenseService;
+
+    private String getAuthenticatedUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName(); // JWT filter sets email as the username
+    }
+
     @PostMapping
-    public ResponseEntity<ExpenseResponse> addExpense(@RequestBody ExpenseRequest expenseRequest) {
-        // TODO: Implement add expense
-        return ResponseEntity.ok(new ExpenseResponse());
+    public ResponseEntity<ExpenseResponse> addExpense(@Valid @RequestBody ExpenseRequest expenseRequest) {
+        String email = getAuthenticatedUserEmail();
+        ExpenseResponse response = expenseService.addExpense(expenseRequest, email);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseResponse> updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest expenseRequest) {
-        // TODO: Implement update expense
-        return ResponseEntity.ok(new ExpenseResponse());
+    public ResponseEntity<ExpenseResponse> updateExpense(@PathVariable Long id, @Valid @RequestBody ExpenseRequest expenseRequest) {
+        String email = getAuthenticatedUserEmail();
+        ExpenseResponse response = expenseService.updateExpense(id, expenseRequest, email);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
-        // TODO: Implement delete expense
+        String email = getAuthenticatedUserEmail();
+        expenseService.deleteExpense(id, email);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<ExpenseResponse>> getAllExpenses() {
-        // TODO: Implement get all expenses
-        return ResponseEntity.ok(Collections.emptyList());
+        String email = getAuthenticatedUserEmail();
+        List<ExpenseResponse> expenses = expenseService.getAllExpenses(email);
+        return ResponseEntity.ok(expenses);
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<ExpenseResponse>> getExpensesByCategory(@RequestParam Long categoryId) {
-        // TODO: Implement filter by category ID
-        return ResponseEntity.ok(Collections.emptyList());
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<List<ExpenseResponse>> getExpensesByCategory(@PathVariable String categoryName) {
+        String email = getAuthenticatedUserEmail();
+        List<ExpenseResponse> expenses = expenseService.getExpensesByCategoryName(categoryName, email);
+        return ResponseEntity.ok(expenses);
     }
 
     @GetMapping("/summary")
     public ResponseEntity<Map<String, Object>> getMonthlySummary(@RequestParam int year, @RequestParam int month) {
-        // TODO: Implement monthly summary
-        return ResponseEntity.ok(Collections.emptyMap());
+        String email = getAuthenticatedUserEmail();
+        Map<String, Object> summary = expenseService.getMonthlySummary(year, month, email);
+        return ResponseEntity.ok(summary);
     }
 }
