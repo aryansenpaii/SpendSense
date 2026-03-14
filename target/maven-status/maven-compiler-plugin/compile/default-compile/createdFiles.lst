@@ -1,6 +1,8 @@
 com\spendsense\repository\ExpenseRepository.class
 com\spendsense\dto\AuthResponse.class
 com\spendsense\exception\GlobalExceptionHandler.class
+com\spendsense\controller\AnalyticsController.class
+com\spendsense\service\AnalyticsServiceImpl.class
 com\spendsense\SpendSenseApplication.class
 com\spendsense\dto\UserRequest.class
 com\spendsense\exception\ResourceNotFoundException.class
@@ -17,6 +19,7 @@ com\spendsense\dto\ExpenseResponse$ExpenseResponseBuilder.class
 com\spendsense\security\JwtUtil.class
 com\spendsense\service\ExpenseService.class
 com\spendsense\model\User.class
+com\spendsense\service\AnalyticsService.class
 com\spendsense\dto\ExpenseRequest.class
 com\spendsense\model\Expense.class
 com\spendsense\service\ExpenseServiceImpl.class
