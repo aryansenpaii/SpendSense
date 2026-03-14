@@ -35,8 +35,7 @@ public class Expense {
     @Column(nullable = false)
     private String description;
 
-    @NotNull(message = "Date is required")
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)

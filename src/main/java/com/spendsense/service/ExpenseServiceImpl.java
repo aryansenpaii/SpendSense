@@ -51,10 +51,12 @@ public class ExpenseServiceImpl implements ExpenseService {
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + request.getCategoryId()));
 
+        LocalDateTime expenseDate = request.getDate() != null ? request.getDate() : LocalDateTime.now();
+
         Expense expense = Expense.builder()
                 .amount(request.getAmount())
                 .description(request.getDescription())
-                .date(request.getDate())
+                .date(expenseDate)
                 .category(category)
                 .user(user)
                 .build();
