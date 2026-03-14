@@ -12,6 +12,7 @@ com\spendsense\security\AuthEntryPointJwt.class
 com\spendsense\security\JwtAuthenticationFilter.class
 com\spendsense\repository\UserRepository.class
 com\spendsense\security\UserDetailsImpl.class
+com\spendsense\dto\LoginRequest.class
 com\spendsense\repository\CategoryRepository.class
 com\spendsense\security\UserDetailsServiceImpl.class
 com\spendsense\model\Category$CategoryBuilder.class

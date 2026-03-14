@@ -1,6 +1,7 @@
 package com.spendsense.controller;
 
 import com.spendsense.dto.AuthResponse;
+import com.spendsense.dto.LoginRequest;
 import com.spendsense.dto.UserRequest;
 import com.spendsense.model.User;
 import com.spendsense.repository.UserRepository;
@@ -40,13 +41,27 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully");
+        // Authenticate the user logically to generate a token immediately
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtil.generateToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        return ResponseEntity.ok(AuthResponse.builder()
+                .token(jwt)
+                .name(userDetails.getName())
+                .email(userDetails.getEmail())
+                .type("Bearer")
+                .build());
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> authenticateUser(@Valid @RequestBody UserRequest userRequest) {
+    public ResponseEntity<AuthResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtil.generateToken(authentication);
