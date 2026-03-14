@@ -53,7 +53,7 @@ Create a new expense for the logged-in user. Note: You must ensure a category ex
 {
   "amount": 150.50,
   "description": "Weekly Groceries",
-  "date": "2024-03-15",
+  "date": "2024-03-15T14:30:00",
   "categoryId": 1
 }
 ```
@@ -77,7 +77,7 @@ Modify an existing expense. Replace `{id}` in the URL with the actual expense ID
 {
   "amount": 165.00,
   "description": "Weekly Groceries + Snacks",
-  "date": "2024-03-15",
+  "date": "2024-03-15T14:30:00",
   "categoryId": 1
 }
 ```

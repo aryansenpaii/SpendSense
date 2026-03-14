@@ -14,7 +14,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.List;
@@ -121,8 +121,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     public Map<String, Object> getMonthlySummary(int year, int month, String userEmail) {
         User user = getUserByEmail(userEmail);
         YearMonth yearMonth = YearMonth.of(year, month);
-        LocalDate startDate = yearMonth.atDay(1);
-        LocalDate endDate = yearMonth.atEndOfMonth();
+        LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(23, 59, 59);
 
         List<Expense> monthlyExpenses = expenseRepository.findByUserIdAndDateBetween(user.getId(), startDate, endDate);
 

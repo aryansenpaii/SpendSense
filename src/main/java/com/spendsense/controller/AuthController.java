@@ -41,21 +41,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-        // Authenticate the user logically to generate a token immediately
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtil.generateToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        return ResponseEntity.ok(AuthResponse.builder()
-                .token(jwt)
-                .name(userDetails.getName())
-                .email(userDetails.getEmail())
-                .type("Bearer")
-                .build());
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")

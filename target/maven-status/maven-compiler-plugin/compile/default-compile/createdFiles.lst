@@ -25,6 +25,7 @@ com\spendsense\dto\ExpenseRequest.class
 com\spendsense\model\Expense.class
 com\spendsense\service\ExpenseServiceImpl.class
 com\spendsense\dto\AuthResponse$AuthResponseBuilder.class
+com\spendsense\config\DataSeeder.class
 com\spendsense\dto\ExpenseResponse.class
 com\spendsense\config\SecurityConfig.class
 com\spendsense\controller\ExpenseController.class

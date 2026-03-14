@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class ExpenseRequest {
@@ -19,7 +19,7 @@ public class ExpenseRequest {
     private String description;
 
     @NotNull(message = "Date is required")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @NotNull(message = "Category is required")
     private Long categoryId;

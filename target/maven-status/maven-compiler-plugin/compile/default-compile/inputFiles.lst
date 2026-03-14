@@ -7,6 +7,7 @@ D:\Projects\SpendSense\src\main\java\com\spendsense\service\AnalyticsService.jav
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\UserDetailsImpl.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\model\User.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\dto\AuthResponse.java
+D:\Projects\SpendSense\src\main\java\com\spendsense\config\DataSeeder.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\controller\AuthController.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\repository\CategoryRepository.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\config\SecurityConfig.java
