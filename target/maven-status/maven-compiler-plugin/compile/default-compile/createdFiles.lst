@@ -15,9 +15,11 @@ com\spendsense\security\UserDetailsServiceImpl.class
 com\spendsense\model\Category$CategoryBuilder.class
 com\spendsense\dto\ExpenseResponse$ExpenseResponseBuilder.class
 com\spendsense\security\JwtUtil.class
+com\spendsense\service\ExpenseService.class
 com\spendsense\model\User.class
 com\spendsense\dto\ExpenseRequest.class
 com\spendsense\model\Expense.class
+com\spendsense\service\ExpenseServiceImpl.class
 com\spendsense\dto\AuthResponse$AuthResponseBuilder.class
 com\spendsense\dto\ExpenseResponse.class
 com\spendsense\config\SecurityConfig.class
