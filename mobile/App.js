@@ -1,11 +1,24 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme as RNDarkTheme } from '@react-navigation/native';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import AppNavigator from './src/navigation/AppNavigator';
+
+const CustomDarkTheme = {
+  ...RNDarkTheme,
+  colors: {
+    ...RNDarkTheme.colors,
+    primary: '#e94560',
+    background: '#0f0e17',
+    card: '#1a1a2e',
+    text: '#ccd6f6',
+    border: '#16213e',
+    notification: '#e94560',
+  },
+};
 
 function RootNavigation() {
   const { token, isLoading } = useAuth();
@@ -19,9 +32,11 @@ function RootNavigation() {
   }
 
   return (
-    <NavigationContainer>
-      {token ? <AppNavigator /> : <AuthNavigator />}
-    </NavigationContainer>
+    <View style={{ flex: 1, backgroundColor: '#0f0e17' }}>
+      <NavigationContainer theme={CustomDarkTheme}>
+        {token ? <AppNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </View>
   );
 }
 
