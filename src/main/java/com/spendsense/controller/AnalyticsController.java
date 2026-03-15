@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,16 +25,16 @@ public class AnalyticsController {
     }
 
     @GetMapping("/monthly-summary")
-    public ResponseEntity<Map<String, Object>> getMonthlySummary() {
+    public ResponseEntity<List<Map<String, Object>>> getMonthlySummary() {
         String email = getAuthenticatedUserEmail();
-        Map<String, Object> summary = analyticsService.getMonthlySummary(email);
+        List<Map<String, Object>> summary = analyticsService.getMonthlySummary(email);
         return ResponseEntity.ok(summary);
     }
 
     @GetMapping("/category-summary")
-    public ResponseEntity<Map<String, Object>> getCategorySummary() {
+    public ResponseEntity<List<Map<String, Object>>> getCategorySummary() {
         String email = getAuthenticatedUserEmail();
-        Map<String, Object> summary = analyticsService.getCategorySummary(email);
+        List<Map<String, Object>> summary = analyticsService.getCategorySummary(email);
         return ResponseEntity.ok(summary);
     }
 }

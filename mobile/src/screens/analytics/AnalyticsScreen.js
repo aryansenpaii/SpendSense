@@ -92,19 +92,22 @@ export default function AnalyticsScreen() {
       {/* Monthly Summary */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>📅 Monthly Breakdown</Text>
-        {monthly.length === 0 ? (
+        {!monthly || monthly.length === 0 ? (
           <Text style={styles.empty}>No data yet.</Text>
         ) : (
-          monthly.map((item, index) => (
-            <View key={index} style={styles.rowCard}>
-              <Text style={styles.rowLabel}>
-                {item.month || item.yearMonth || `Month ${index + 1}`}
-              </Text>
-              <Text style={styles.rowAmount}>
-                ₹{Number(item.total || item.totalAmount || 0).toFixed(2)}
-              </Text>
-            </View>
-          ))
+          monthly.map((item, index) => {
+            const dateLabel = item.year && item.month 
+              ? `${item.year}-${String(item.month).padStart(2, '0')}`
+              : item.month || item.yearMonth || `Entry ${index + 1}`;
+            const amount = item.total || item.totalAmount || 0;
+            
+            return (
+              <View key={index} style={styles.rowCard}>
+                <Text style={styles.rowLabel}>{dateLabel}</Text>
+                <Text style={styles.rowAmount}>₹{Number(amount).toFixed(2)}</Text>
+              </View>
+            );
+          })
         )}
       </View>
     </ScrollView>
