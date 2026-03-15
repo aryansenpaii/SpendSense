@@ -34,14 +34,14 @@ public class ExpenseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseResponse> updateExpense(@PathVariable Long id, @Valid @RequestBody ExpenseRequest expenseRequest) {
+    public ResponseEntity<ExpenseResponse> updateExpense(@PathVariable("id") Long id, @Valid @RequestBody ExpenseRequest expenseRequest) {
         String email = getAuthenticatedUserEmail();
         ExpenseResponse response = expenseService.updateExpense(id, expenseRequest, email);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteExpense(@PathVariable("id") Long id) {
         String email = getAuthenticatedUserEmail();
         expenseService.deleteExpense(id, email);
         return ResponseEntity.noContent().build();
@@ -55,7 +55,7 @@ public class ExpenseController {
     }
 
     @GetMapping("/category/{categoryName}")
-    public ResponseEntity<List<ExpenseResponse>> getExpensesByCategory(@PathVariable String categoryName) {
+    public ResponseEntity<List<ExpenseResponse>> getExpensesByCategory(@PathVariable("categoryName") String categoryName) {
         String email = getAuthenticatedUserEmail();
         List<ExpenseResponse> expenses = expenseService.getExpensesByCategoryName(categoryName, email);
         return ResponseEntity.ok(expenses);
