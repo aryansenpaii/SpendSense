@@ -11,6 +11,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { updateExpense } from '../../services/expenseService';
 
 export default function EditExpenseScreen({ navigation, route }) {
@@ -19,7 +20,9 @@ export default function EditExpenseScreen({ navigation, route }) {
   const [amount, setAmount] = useState(String(expense.amount));
   const [description, setDescription] = useState(expense.description || '');
   const [categoryId, setCategoryId] = useState(String(expense.categoryId || ''));
-  const [date, setDate] = useState(expense.date ? expense.date.replace('Z', '') : '');
+  const [date, setDate] = useState(new Date(expense.date || new Date()));
+  const [showPicker, setShowPicker] = useState(false);
+  const [pickerMode, setPickerMode] = useState('date');
   const [loading, setLoading] = useState(false);
 
   const handleUpdate = async () => {
@@ -34,10 +37,12 @@ export default function EditExpenseScreen({ navigation, route }) {
     }
     setLoading(true);
     try {
+      // Format date to YYYY-MM-DDTHH:mm:ss
+      const formattedDate = date.toISOString().split('.')[0];
       await updateExpense(expense.id, {
         amount: parsedAmount,
         description: description.trim() || null,
-        date: date.trim() || null,
+        date: formattedDate,
         categoryId: parseInt(categoryId, 10),
       });
       navigation.goBack();
@@ -46,6 +51,17 @@ export default function EditExpenseScreen({ navigation, route }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShowPicker(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShowPicker(true);
+    setPickerMode(currentMode);
   };
 
   return (
@@ -87,14 +103,26 @@ export default function EditExpenseScreen({ navigation, route }) {
             keyboardType="number-pad"
           />
 
-          <Text style={styles.label}>Date</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="YYYY-MM-DDTHH:mm:ss"
-            placeholderTextColor="#8892b0"
-            value={date}
-            onChangeText={setDate}
-          />
+          <Text style={styles.label}>Date & Time</Text>
+          <View style={styles.dateTimeContainer}>
+            <TouchableOpacity style={styles.dateTimeButton} onPress={() => showMode('date')}>
+              <Text style={styles.dateTimeText}>📅 {date.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dateTimeButton} onPress={() => showMode('time')}>
+              <Text style={styles.dateTimeText}>🕒 {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+            </TouchableOpacity>
+          </View>
+
+          {showPicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={pickerMode}
+              is24Hour={true}
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
 
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
@@ -144,6 +172,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#233554',
   },
+  dateTimeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+    gap: 12,
+  },
+  dateTimeButton: {
+    flex: 1,
+    backgroundColor: '#16213e',
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#233554',
+  },
+  dateTimeText: { color: '#ccd6f6', fontSize: 15, fontWeight: '600' },
   button: {
     backgroundColor: '#e94560',
     borderRadius: 12,

@@ -11,13 +11,16 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { addExpense } from '../../services/expenseService';
 
 export default function AddExpenseScreen({ navigation }) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+  const [pickerMode, setPickerMode] = useState('date');
   const [loading, setLoading] = useState(false);
 
   const handleAdd = async () => {
@@ -32,10 +35,12 @@ export default function AddExpenseScreen({ navigation }) {
     }
     setLoading(true);
     try {
+      // Format date to YYYY-MM-DDTHH:mm:ss
+      const formattedDate = date.toISOString().split('.')[0];
       await addExpense({
         amount: parsedAmount,
         description: description.trim() || null,
-        date: date.trim() || null, // null → backend uses current time
+        date: formattedDate,
         categoryId: parseInt(categoryId, 10),
       });
       navigation.goBack();
@@ -44,6 +49,23 @@ export default function AddExpenseScreen({ navigation }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShowPicker(Platform.OS === 'ios');
+    setDate(currentDate);
+
+    if (pickerMode === 'date' && event.type === 'set') {
+      // If we just picked a date, optionally show time picker next
+      // For simplicity, let's allow users to toggle between them manually or just use one
+      // Here we'll just close it. User can tap "Time" to change time.
+    }
+  };
+
+  const showMode = (currentMode) => {
+    setShowPicker(true);
+    setPickerMode(currentMode);
   };
 
   return (
@@ -84,14 +106,26 @@ export default function AddExpenseScreen({ navigation }) {
             keyboardType="number-pad"
           />
 
-          <Text style={styles.label}>Date (optional)</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="YYYY-MM-DDTHH:mm:ss (leave blank for now)"
-            placeholderTextColor="#8892b0"
-            value={date}
-            onChangeText={setDate}
-          />
+          <Text style={styles.label}>Date & Time</Text>
+          <View style={styles.dateTimeContainer}>
+            <TouchableOpacity style={styles.dateTimeButton} onPress={() => showMode('date')}>
+              <Text style={styles.dateTimeText}>📅 {date.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dateTimeButton} onPress={() => showMode('time')}>
+              <Text style={styles.dateTimeText}>🕒 {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+            </TouchableOpacity>
+          </View>
+
+          {showPicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={pickerMode}
+              is24Hour={true}
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
 
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
@@ -140,6 +174,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#233554',
   },
+  dateTimeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+    gap: 12,
+  },
+  dateTimeButton: {
+    flex: 1,
+    backgroundColor: '#16213e',
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#233554',
+  },
+  dateTimeText: { color: '#ccd6f6', fontSize: 15, fontWeight: '600' },
   button: {
     backgroundColor: '#e94560',
     borderRadius: 12,

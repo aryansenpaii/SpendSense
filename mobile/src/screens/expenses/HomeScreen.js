@@ -64,7 +64,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.cardCategory}>{item.categoryName || 'Uncategorized'}</Text>
         <Text style={styles.cardDesc} numberOfLines={1}>{item.description || '—'}</Text>
         <Text style={styles.cardDate}>
-          {item.date ? new Date(item.date).toLocaleDateString() : ''}
+          {item.date ? new Date(item.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : ''}
         </Text>
       </View>
       <View style={styles.cardRight}>
