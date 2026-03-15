@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f0e17' },
   inner: { padding: 20, paddingBottom: 40 },
   loadingContainer: { flex: 1, backgroundColor: '#0f0e17', justifyContent: 'center', alignItems: 'center' },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#ccd6f6', marginBottom: 14 },
+  section: { marginBottom: 32 },
+  sectionTitle: { fontSize: 22, fontWeight: '800', color: '#ccd6f6', marginBottom: 18 },
   rowCard: {
     backgroundColor: '#1a1a2e',
     borderRadius: 14,
