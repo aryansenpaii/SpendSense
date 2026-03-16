@@ -17,6 +17,9 @@ public class JwtUtil {
 
     public JwtUtil(@Value("${app.jwt.secret}") String jwtSecret,
                    @Value("${app.jwt.expiration-ms}") long jwtExpirationMs) {
+        if (jwtSecret == null || jwtSecret.length() < 32) {
+            throw new IllegalArgumentException("JWT Secret must be at least 32 characters long. Please check your JWT_SECRET environment variable.");
+        }
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
         this.jwtExpirationMs = jwtExpirationMs;
     }

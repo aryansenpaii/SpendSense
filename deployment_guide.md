@@ -39,7 +39,7 @@ In the Render dashboard, go to the **Environment** tab and add:
 *   `DB_URL`: `jdbc:mysql://<your-host>:<your-port>/defaultdb?useSSL=true`
 *   `DB_USERNAME`: `avnadmin`
 *   `DB_PASSWORD`: `<your-password>`
-*   `JWT_SECRET`: `AnyLongRandomStringForSecurity` (at least 32 chars)
+*   `JWT_SECRET`: `A_Very_Long_Random_String_At_Least_32_Chars` (IMPORTANT: Must be 32+ characters long for security)
 
 ---
 

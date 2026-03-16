@@ -3,7 +3,7 @@ import { getToken } from '../utils/storage';
 
 // Use 10.0.2.2 for Android emulator (maps to host machine localhost)
 // Change to your machine's local IP when testing on a physical device
-const BASE_URL = 'http://10.81.100.63:8080';
+const BASE_URL = 'https://spendsense-9n1f.onrender.com';
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
