@@ -25,10 +25,10 @@
 - **📱 Premium Dark UI**: A stunning, modern interface designed for focus and clarity.
 - **🚀 Cross-Platform**: Built with React Native and Expo for a seamless experience on Android and iOS.
 
-<div align="center">
+<!-- <div align="center">
   <h3>📱 App Mockup</h3>
   <img src="assets/mockup.png" alt="SpendSense App Mockup" width="600" style="border-radius: 20px;" />
-</div>
+</div> -->
 
 ## 🛠️ Tech Stack
 
@@ -82,4 +82,4 @@ For a detailed look at the project architecture, file structures, and method sig
 
 ---
 
-<p align="center">Built with ❤️ by the SpendSense Team</p>
+<p align="center">Built with ❤️ by Aryan Kumar</p>
