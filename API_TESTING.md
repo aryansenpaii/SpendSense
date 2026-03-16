@@ -113,3 +113,28 @@ Get a summary of expenses aggregated by category.
 * **URL**: `/api/analytics/category-summary`
 * **Headers**: 
   * `Authorization: Bearer <token>`
+
+---
+
+## 4. Categories
+
+### Get All Categories
+Retrieve all available categories.
+* **Method**: `GET`
+* **URL**: `/api/categories`
+* **Headers**: 
+  * `Authorization: Bearer <token>`
+
+### Add New Category
+Create a new category.
+* **Method**: `POST`
+* **URL**: `/api/categories`
+* **Headers**: 
+  * `Content-Type: application/json`
+  * `Authorization: Bearer <token>`
+* **Body (raw JSON)**:
+```json
+{
+  "name": "Health & Fitness"
+}
+```

@@ -1,5 +1,6 @@
 package com.spendsense.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,6 @@ public class Category {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
+    @JsonIgnore
     private List<Expense> expenses = new ArrayList<>();
 }

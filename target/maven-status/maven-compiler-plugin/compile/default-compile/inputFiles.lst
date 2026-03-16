@@ -1,11 +1,13 @@
 D:\Projects\SpendSense\src\main\java\com\spendsense\controller\ExpenseController.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\dto\ExpenseResponse.java
+D:\Projects\SpendSense\src\main\java\com\spendsense\config\DataInitializer.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\dto\ExpenseRequest.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\exception\GlobalExceptionHandler.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\SpendSenseApplication.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\service\AnalyticsService.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\UserDetailsImpl.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\model\User.java
+D:\Projects\SpendSense\src\main\java\com\spendsense\controller\CategoryController.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\dto\AuthResponse.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\config\DataSeeder.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\controller\AuthController.java
@@ -14,6 +16,7 @@ D:\Projects\SpendSense\src\main\java\com\spendsense\config\SecurityConfig.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\JwtUtil.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\service\ExpenseServiceImpl.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\UserDetailsServiceImpl.java
+D:\Projects\SpendSense\src\main\java\com\spendsense\service\CategoryServiceImpl.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\AuthEntryPointJwt.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\exception\ResourceNotFoundException.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\service\AnalyticsServiceImpl.java
@@ -23,6 +26,7 @@ D:\Projects\SpendSense\src\main\java\com\spendsense\repository\UserRepository.ja
 D:\Projects\SpendSense\src\main\java\com\spendsense\model\Expense.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\controller\AnalyticsController.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\service\ExpenseService.java
+D:\Projects\SpendSense\src\main\java\com\spendsense\service\CategoryService.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\model\Category.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\security\JwtAuthenticationFilter.java
 D:\Projects\SpendSense\src\main\java\com\spendsense\dto\UserRequest.java
